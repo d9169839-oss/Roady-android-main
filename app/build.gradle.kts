@@ -5,7 +5,7 @@ plugins {
 }
 android {
     namespace = "com.roadhelp.app"
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.roadhelp.app"
         minSdk = 26
