@@ -11,7 +11,7 @@ com.roadhelp.app/
 ├── core/
 │   ├── design/                     # Theme, tokens and shared design primitives
 │   ├── network/                    # Connectivity observation
-│   ├── location/                   # Android location adapter (next location milestone)
+│   ├── location/                   # Connectivity and platform location integrations
 │   ├── permissions/                # Runtime permission coordination
 │   └── navigation/                 # Navigation graph when multiple screens are wired
 ├── domain/
@@ -19,6 +19,7 @@ com.roadhelp.app/
 │   ├── repository/                 # Repository contracts
 │   └── usecase/                    # Business rules and application actions
 ├── data/
+│   ├── location/                   # Fused location adapter
 │   ├── remote/                     # HTTP API and DTOs
 │   └── repository/                 # Repository implementations/mappers
 ├── di/                             # Dependency injection modules when introduced
