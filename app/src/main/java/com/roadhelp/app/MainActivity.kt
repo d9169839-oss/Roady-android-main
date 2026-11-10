@@ -3,6 +3,8 @@ package com.roadhelp.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.roadhelp.app.core.network.ConnectivityMonitor
 
 /**
@@ -20,7 +22,8 @@ class MainActivity : ComponentActivity() {
         connectivityMonitor = ConnectivityMonitor(applicationContext)
 
         setContent {
-            RoadHelpApp(isOffline = !connectivityMonitor.isOnline.collectAsStateCompat())
+            val isOnline by connectivityMonitor.isOnline.collectAsState()
+            RoadHelpApp(isOffline = !isOnline)
         }
     }
 
