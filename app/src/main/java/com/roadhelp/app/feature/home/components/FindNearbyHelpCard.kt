@@ -39,7 +39,7 @@ fun FindNearbyHelpCard(
             )
             Spacer(Modifier.height(6.dp))
             Text(
-                "Discover nearby towing, tyre, battery and repair services.",
+                "Discover nearby towing, tyre, battery and repair services. Your location is used only while the app is open.",
                 color = White.copy(alpha = 0.82f)
             )
             Spacer(Modifier.height(16.dp))
