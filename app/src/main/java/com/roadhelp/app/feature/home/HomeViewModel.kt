@@ -1,6 +1,7 @@
 package com.roadhelp.app.feature.home
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CancellationException
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.roadhelp.app.domain.repository.DeviceLocationRepository
@@ -38,6 +39,8 @@ class HomeViewModel(
                         }
                     )
                 }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (_: SecurityException) {
                 _uiState.update {
                     it.copy(
