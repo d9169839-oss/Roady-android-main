@@ -5,7 +5,7 @@ plugins {
 }
 android {
     namespace = "com.roadhelp.app"
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.roadhelp.app"
         minSdk = 26
@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.play.services.location)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
