@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.roadhelp.app.core.design.Canvas
 import com.roadhelp.app.domain.model.ProviderCategory
 import com.roadhelp.app.feature.home.components.CategorySelector
 import com.roadhelp.app.feature.home.components.EmergencyNoticeCard
