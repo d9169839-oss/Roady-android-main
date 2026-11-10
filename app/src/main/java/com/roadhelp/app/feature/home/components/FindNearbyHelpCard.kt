@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,10 @@ import com.roadhelp.app.core.design.RoadTeal
 import com.roadhelp.app.core.design.White
 
 @Composable
-fun FindNearbyHelpCard(onFindNearbyHelp: () -> Unit) {
+fun FindNearbyHelpCard(
+    isLoading: Boolean,
+    onFindNearbyHelp: () -> Unit
+) {
     Card(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = Ink)
@@ -35,17 +39,27 @@ fun FindNearbyHelpCard(onFindNearbyHelp: () -> Unit) {
             )
             Spacer(Modifier.height(6.dp))
             Text(
-                "Discover nearby towing, tyre, battery and repair services.",
+                "Discover nearby towing, tyre, battery and repair services. Your location is used only while the app is open.",
                 color = White.copy(alpha = 0.82f)
             )
             Spacer(Modifier.height(16.dp))
             Button(
                 onClick = onFindNearbyHelp,
+                enabled = !isLoading,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = RoadTeal)
             ) {
-                Text("Find nearby help", fontWeight = FontWeight.SemiBold)
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.height(18.dp),
+                        color = White,
+                        strokeWidth = 2.dp
+                    )
+                    Text("  Finding location…", fontWeight = FontWeight.SemiBold)
+                } else {
+                    Text("Find nearby help", fontWeight = FontWeight.SemiBold)
+                }
             }
         }
     }

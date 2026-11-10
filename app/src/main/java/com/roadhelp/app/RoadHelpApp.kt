@@ -3,6 +3,7 @@ package com.roadhelp.app
 import androidx.compose.runtime.Composable
 import com.roadhelp.app.core.design.RoadHelpTheme
 import com.roadhelp.app.feature.home.HomeScreen
+import com.roadhelp.app.feature.home.HomeViewModel
 
 /**
  * Application-level Compose root.
@@ -11,8 +12,11 @@ import com.roadhelp.app.feature.home.HomeScreen
  * not inside an individual feature screen or Activity.
  */
 @Composable
-fun RoadHelpApp(isOffline: Boolean) {
+fun RoadHelpApp(isOffline: Boolean, homeViewModel: HomeViewModel) {
     RoadHelpTheme {
-        HomeScreen(isOffline = isOffline)
+        HomeScreen(
+            isOffline = isOffline,
+            viewModel = homeViewModel
+        )
     }
 }
