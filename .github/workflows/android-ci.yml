@@ -1,9 +1,11 @@
 name: Android CI
+
 on:
   push:
     branches: [ main ]
+  # Validate every pull request, including stacked feature branches.
   pull_request:
-    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
