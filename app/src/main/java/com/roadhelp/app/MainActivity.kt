@@ -3,12 +3,14 @@ package com.roadhelp.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import com.roadhelp.app.core.design.RoadHelpTheme
 import com.roadhelp.app.core.network.ConnectivityMonitor
-import com.roadhelp.app.presentation.home.HomeScreen
 
+/**
+ * Android entry point only.
+ *
+ * Platform lifecycle and connectivity are bridged into the Compose application root;
+ * feature UI and screen state are kept out of this Activity.
+ */
 class MainActivity : ComponentActivity() {
 
     private lateinit var connectivityMonitor: ConnectivityMonitor
@@ -18,11 +20,7 @@ class MainActivity : ComponentActivity() {
         connectivityMonitor = ConnectivityMonitor(applicationContext)
 
         setContent {
-            val isOnline by connectivityMonitor.isOnline.collectAsState()
-
-            RoadHelpTheme {
-                HomeScreen(isOffline = !isOnline)
-            }
+            RoadHelpApp(isOffline = !connectivityMonitor.isOnline.collectAsStateCompat())
         }
     }
 
