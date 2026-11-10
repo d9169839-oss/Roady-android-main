@@ -1,29 +1,39 @@
 # Android implementation progress
 
-## Bootstrap
-- [x] Product description and locked MVP decisions.
-- [x] Kotlin/Compose Gradle project structure.
-- [x] Initial Material 3 theme and list-first home screen.
-- [x] Provider category enum and framework-free provider model.
-- [x] Category unit tests and GitHub Actions workflow.
-- [ ] Add Gradle wrapper and verify toolchain compatibility.
-- [ ] Run a real emulator/device build; no build is claimed yet.
+## Foundation
+- [x] Kotlin/Compose project and Material 3 theme scaffold.
+- [x] Separate Android Activity from the application-level Compose root.
+- [x] Split Home into a screen file and focused reusable composables.
+- [x] Move preview-only provider fixtures out of UI components.
+- [x] Keep connectivity observation in the platform/core layer and show offline state in the Home feature.
+- [x] Correct the redundant Kotlin Android Gradle plugin application for AGP 9+.
+- [ ] Confirm the corrected Gradle build and unit tests in CI.
+- [ ] Add navigation and dependency injection when the first multi-screen workflow is introduced.
 
-## Platform foundation
-- [x] Declare internet and network-state permissions.
-- [x] Declare foreground approximate and precise location permissions (no background location).
-- [x] Declare Android notification permission.
-- [x] Add event-driven validated-internet monitoring tied to Activity foreground lifecycle.
-- [x] Show a persistent offline banner above the home content and hide it when validated internet returns.
-- [ ] Add runtime location permission flow when nearby discovery is wired.
-- [ ] Add contextual notification permission request when a notification feature is introduced.
+## Feature milestones
+1. **Location:** foreground permission UX, device location provider, denied/disabled states, 300 m movement and five-minute freshness policy.
+2. **Discovery:** API client, DTO mapping, repository, use cases, 25 km radius, nearest-first ordering, category filtering, loading/empty/error states.
+3. **Provider list and map:** independent Compose screens and ViewModels; list remains the primary experience, map is secondary.
+4. **Provider actions:** user-initiated call, SMS, WhatsApp, email and maps intents.
+5. **Reliability:** app-wide offline status, backend-health distinction, retry and resilient state handling.
+6. **Release readiness:** tests, accessibility, performance, localisation, policy review and release build.
 
-## Next phases
-1. Foundation: verify Gradle/SDK, add Hilt, navigation and architecture tests.
-2. Location: request foreground permission, obtain device location, enforce 300 m movement threshold and five-minute freshness gate.
-3. Discovery: API client, DTO mapping, repository, use cases and UI loading/error/empty states.
-4. Contact: safe call, WhatsApp, SMS, email and maps intents.
-5. Quality: accessibility, localisation, policy review, tests and release hardening.
+## Product constraints
+- Initial search radius: 25 km.
+- Refresh only when the user has moved at least 300 m **and** the last successful results are at least five minutes old.
+- Foreground location only. No background location, tracking, or polling.
+- No mandatory account or dispatch/booking marketplace.
+- Organic results sorted nearest-first.
+- Sample records must remain visibly labelled as samples; never present them as live providers.
+- External contact/navigation actions happen only after an explicit user tap.
 
-## Honest status
-The current home screen still uses clearly labelled sample listings. The manifest declares permissions, but runtime location and notification permission prompts are not implemented yet. Connectivity monitoring is implemented for the foreground Activity and drives a persistent offline banner. A successful Android build or device test has not yet been verified.
+## Architecture conventions
+- `MainActivity` owns Android lifecycle integration only.
+- `RoadHelpApp` is the Compose application root; global theme/navigation/status concerns belong there.
+- Each user-facing feature owns its screen, UI state, ViewModel and feature-specific components.
+- Reusable platform integrations belong in `core`; framework-independent rules and models belong in `domain`; external data mapping belongs in `data`.
+- Composables render state and emit events; they do not call Android services, repositories or network clients directly.
+- Add abstractions when a real dependency or use case requires them; avoid speculative empty layers.
+
+## Honest validation status
+The earlier Android CI run failed during Gradle plugin application because the project applied `org.jetbrains.kotlin.android` alongside AGP 9.5.1 built-in Kotlin support. This branch removes that redundant plugin. The corrected build has not yet completed; check the branch's CI run before claiming success. No emulator/device test has been performed.
