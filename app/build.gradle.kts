@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    // AGP 9+ provides built-in Kotlin support; do not apply kotlin.android here.
     alias(libs.plugins.kotlin.compose)
 }
 android {
     namespace = "com.roadhelp.app"
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.roadhelp.app"
         minSdk = 26
